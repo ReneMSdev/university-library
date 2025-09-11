@@ -6,6 +6,13 @@ export const FIELD_NAMES = {
   universityCard: 'Upload University ID Card',
 }
 
+export const FIELD_TYPES = {
+  fullName: 'text',
+  email: 'email',
+  universityId: 'number',
+  password: 'password',
+}
+
 export const sampleBooks = [
   {
     id: 1,
