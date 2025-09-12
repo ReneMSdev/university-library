@@ -1,7 +1,14 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { DefaultValues, FieldValues, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form'
+import {
+  DefaultValues,
+  FieldValues,
+  Path,
+  SubmitHandler,
+  useForm,
+  UseFormReturn,
+} from 'react-hook-form'
 import { ZodType } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -20,7 +27,7 @@ import { FIELD_NAMES, FIELD_TYPES } from '@/constants'
 import ImageUpload from './ImageUpload'
 
 interface Props<T extends FieldValues> {
-  schema: ZodType<T>
+  schema: ZodType<T, any, any>
   defaultValues: T
   onSubmit: (data: T) => Promise<{ success: boolean; error?: string }>
   type: 'SIGN_IN' | 'SIGN_UP'
@@ -63,7 +70,7 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
                   </FormLabel>
                   <FormControl>
                     {field.name === 'universityCard' ? (
-                      <ImageUpload />
+                      <ImageUpload onFileChange={field.onChange} />
                     ) : (
                       <Input
                         required
@@ -79,7 +86,12 @@ const AuthForm = <T extends FieldValues>({ type, schema, defaultValues, onSubmit
             />
           ))}
 
-          <Button type='submit'>Submit</Button>
+          <Button
+            type='submit'
+            className='form-btn'
+          >
+            {isSignIn ? 'Sign in' : 'Sign up'}
+          </Button>
         </form>
       </Form>
 
